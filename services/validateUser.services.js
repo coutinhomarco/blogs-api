@@ -11,24 +11,22 @@ const validateName = (req, res, next) => {
 };
 
 const validateEmail = async (req, res, next) => {
+  const regex = /[\w]+@[\w]+.com/i;
   const { email } = req.body;
+  if (!email) return res.status(400).json({ message: '"email" is required' });
   const alreadyExists = await User.findOne({ where: { email } });
   if (alreadyExists) return res.status(409).json({ message: 'User already registered' });
-  const regex = /[\w]+@[\w]+.com/i;
-  if (!email) return res.status(400).json({ message: '"email" is required' });
   if (!regex.test(email)) return res.status(400).json({ message: '"email" must be a valid email' });
   next();
 };
 
-const validatePassword = async (req, _res, next) => {
+const validatePassword = async (req, res, next) => {
   const { password } = req.body;
-  if (!password) return { code: 400, data: { message: '"password" is required' } };
+  if (!password) return res.status(400).json({ message: '"password" is required' });
   if (password.length !== 6) {
-    return (
-      { code: 400, data: { message: '"password" length must be 6 characters long' } }
-    ); 
+    return (res.status(400).json({ message: '"password" length must be 6 characters long' }));
   }
   next();
 };
 
-module.exports = [validateName, validateEmail, validatePassword];
+module.exports = [validatePassword, validateName, validateEmail];
