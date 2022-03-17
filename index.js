@@ -4,6 +4,7 @@ const express = require('express');
 const middleware = require('./midlewares');
 const { createUser, login, getUsers, getOne } = require('./controllers');
 const { validateUser, validateLogin, validateGetOne } = require('./services');
+const { createCategory } = require('./controllers/Categories.controller');
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,3 +23,5 @@ app.post('/login', validateLogin, login);
 app.get('/user', middleware.Auth, getUsers);
 
 app.get('/user/:id', middleware.Auth, validateGetOne, getOne);
+
+app.post('/categories', middleware.Auth, createCategory);
