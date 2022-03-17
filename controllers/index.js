@@ -1,7 +1,7 @@
 const login = require('./login.controller.js');
-const create = require('./user.controller.js');
+const createUser = require('./createUser.controller.js');
 
 module.exports = { 
   login,
-  create,
+  createUser,
 };

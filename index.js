@@ -2,7 +2,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
 const middleware = require('./midlewares');
-const { create, login } = require('./controllers');
+const { createUser, login } = require('./controllers');
 const { validateUser, validateLogin } = require('./services');
 
 const app = express();
@@ -15,6 +15,8 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/user', validateUser, create);
+app.post('/user', validateUser, createUser);
 
 app.post('/login', validateLogin, login);
+
+app.get('/user');

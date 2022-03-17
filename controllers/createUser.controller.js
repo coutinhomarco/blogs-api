@@ -1,7 +1,7 @@
 const jwtGenerate = require('../helpers/jwtGenerate');
 const { User } = require('../models');
 
-const create = async (req, res, next) => {
+const createUser = async (req, res, next) => {
   try {
     const newUser = await User.create(req.body);
     const jwtToken = jwtGenerate({ id: newUser.id, name: newUser.name, email: newUser.email });
@@ -11,4 +11,4 @@ const create = async (req, res, next) => {
   }
 };
 
-module.exports = create;
+module.exports = createUser;
