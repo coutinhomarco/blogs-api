@@ -33,7 +33,6 @@ const getUsers = async (_req, res, next) => {
 
 const getOne = async (req, res, next) => {
   try {
-    console.log('chegou no controller');
     return res.status(200).json(req.user);
   } catch (error) {
     next(error);
