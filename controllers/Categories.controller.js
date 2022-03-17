@@ -11,13 +11,15 @@ const createCategory = async (req, res, next) => {
   }
 };
 
-const getCategories = async (req, res, next) => {
+const getCategories = async (_req, res, next) => {
   try {
-    const
+    const categories = await Category.findAll();
+    return res.status(200).json(categories);
   } catch (error) {
-    
+    next(error);
   }
 };
 module.exports = {
   createCategory,
+  getCategories,
 };
