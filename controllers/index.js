@@ -1,8 +1,9 @@
 const { login, createUser,
-  getUser } = require('./User.controller.js');
+  getUsers, getOne } = require('./User.controller.js');
 
 module.exports = { 
   login,
   createUser,
-  getUser,
+  getUsers,
+  getOne,
 };

@@ -11,15 +11,6 @@ const createUser = async (req, res, next) => {
   }
 };
 
-const getUser = async (req, res, next) => {
-  try {
-    const users = await User.findAll();
-    return res.status(200).json(users);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const login = async (req, res, next) => {
   const { email } = req.body;
   try {
@@ -31,4 +22,21 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { createUser, getUser, login };
+const getUsers = async (_req, res, next) => {
+  try {
+    const users = await User.findAll();
+    return res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOne = async (req, res, next) => {
+  try {
+    console.log('chegou no controller');
+    return res.status(200).json(req.user);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = { createUser, getUsers, login, getOne };
