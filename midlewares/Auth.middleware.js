@@ -2,18 +2,17 @@ const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
   try {
-    const token = req.header.authorization;
+    const { authorization } = await req.headers;
   
-    if (!token) return { code: 401, data: { message: 'Unauthorized' } };
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!authorization) return res.status(401).json({ message: 'Token not found' });
+    const decoded = jwt.verify(authorization, process.env.JWT_SECRET);
     
     req.tokenData = decoded.data;
 
     next();
   } catch (error) {
       if (error.name.includes('Token')) {
-        return (
-          { code: 401, data: { message: 'Expired or invalid token' } }); 
+        return res.status(401).json({ message: 'Expired or invalid token' });
 }
       next(error);
   }
