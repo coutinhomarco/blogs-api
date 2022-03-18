@@ -13,7 +13,7 @@ const getPosts = async (_req, res, next) => {
   try {
     const posts = await BlogPost.findAll(
       { include: [
-        { model: User, as: 'user' },
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
         { model: Category, as: 'categories', through: { attributes: [] } },
       ] },
     );
