@@ -27,14 +27,13 @@ module.exports = {
        content: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       published: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
         allowNull: false,
       },
       updated: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
         allowNull: true,
       },
      });

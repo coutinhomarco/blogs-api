@@ -26,11 +26,11 @@ content: {
  allowNull: false,
 },
 published: {
- type: DataTypes.STRING,
+ type: DataTypes.DATE,
  allowNull: false,
 },
 updated: {
- type: DataTypes.STRING,
+ type: DataTypes.DATE,
  allowNull: false,
 } };
 
@@ -39,14 +39,14 @@ module.exports = (sequelize, _DataTypes) => {
     ...atributes,
   },
   {
-    timestamps: true,
+    timestamps: false,
     tableName: 'BlogPosts',
     underscored: false,
   });
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
-      foreignKey: 'id', as: 'user',
+      foreignKey: 'userId', as: 'user',
     });
   };
   
