@@ -1,6 +1,6 @@
 const { User } = require('../models');
 
-const validateGetOne = async (req, res, next) => {
+const validateGetUser = async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await User.findOne({ where: { id } });
@@ -12,4 +12,4 @@ const validateGetOne = async (req, res, next) => {
   }
 };
 
-module.exports = { validateGetOne };
+module.exports = validateGetUser;
