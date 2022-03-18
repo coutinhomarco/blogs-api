@@ -19,8 +19,8 @@ const validatePost = async (req, res, next) => {
     const published = new Date();
     const updated = published;
     const value = postValidations(req.body);
-    const allCategoriesExists = await validateCategories(categoryIds);
     if (value) return res.status(value.code).json({ message: value.message });
+    const allCategoriesExists = await validateCategories(categoryIds);
     if (!allCategoriesExists) {
       return res.status(400).json({ message: '"categoryIds" not found' });
     }
