@@ -54,7 +54,7 @@ const updatePost = async (req, res, next) => {
       where: { id },
       include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
     });
-    return res.status(201).json(endPointReturn);
+    return res.status(200).json(endPointReturn);
   } catch (error) {
     next(error);
   }
