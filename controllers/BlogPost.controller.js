@@ -1,4 +1,5 @@
 const { BlogPost, User, Category } = require('../models');
+const updatePostHelper = require('../helpers/updatePost');
 
 const createBlogPost = async (req, res, next) => {
   try {
@@ -38,4 +39,25 @@ const getOnePost = async (req, res, next) => {
   }
 };
 
-module.exports = { createBlogPost, getPosts, getOnePost };
+const updatePost = async (req, res, next) => {
+  try {
+    const { id: userId } = req.tokenData;
+    const { id } = req.params;
+    const helperReturn = updatePostHelper(req.body);
+    if (helperReturn) return res.status(helperReturn.code).json(helperReturn.message);
+    if (Number(id) !== Number(userId)) {
+      return (
+        res.status(401).json({ message: 'Unauthorized user' })); 
+}
+    await BlogPost.update(req.body, { where: { id } });
+    const endPointReturn = await BlogPost.findOne({
+      where: { id },
+      include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    return res.status(201).json(endPointReturn);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createBlogPost, getPosts, getOnePost, updatePost };

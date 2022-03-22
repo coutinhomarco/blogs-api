@@ -12,6 +12,7 @@ const {
     createBlogPost, 
     getPosts,
     getOnePost,
+    updatePost,
   } = require('./controllers');
 const { validateUser, validateLogin, validateGetUser, validatePost } = require('./services');
 
@@ -43,3 +44,5 @@ app.post('/post', middleware.Auth, validatePost, createBlogPost);
 app.get('/post', middleware.Auth, getPosts);
 
 app.get('/post/:id', middleware.Auth, getOnePost);
+
+app.put('/post/:id', middleware.Auth, updatePost);
