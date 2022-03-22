@@ -44,16 +44,15 @@ const updatePost = async (req, res, next) => {
     const { id: userId } = req.tokenData;
     const { id } = req.params;
     const helperReturn = updatePostHelper(req.body);
-    if (helperReturn) return res.status(helperReturn.code).json(helperReturn.message);
+    console.log(helperReturn);
+    if (helperReturn) return res.status(helperReturn.code).json(helperReturn.data);
     if (Number(id) !== Number(userId)) {
       return (
         res.status(401).json({ message: 'Unauthorized user' })); 
 }
     await BlogPost.update(req.body, { where: { id } });
-    const endPointReturn = await BlogPost.findOne({
-      where: { id },
-      include: [{ model: Category, as: 'categories', through: { attributes: [] } }],
-    });
+    const endPointReturn = await BlogPost.findOne({ where: { id },
+      include: [{ model: Category, as: 'categories', through: { attributes: [] } }] });
     return res.status(200).json(endPointReturn);
   } catch (error) {
     next(error);
