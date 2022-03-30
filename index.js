@@ -1,7 +1,7 @@
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
-const middleware = require('./midlewares');
+const middleware = require('./middlewares');
 const { 
     createUser, 
     login, 
